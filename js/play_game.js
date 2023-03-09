@@ -116,142 +116,32 @@ function play(map_size = 9, rounds = 15) {
     // Evaluate Score    
     function evaluate_score(world_map) {
 
-        // Score blocks
-        function score_blocks(world_map) {
-            function find_biggest_clusters(world_map) {
-                function dfs(i, j, baseid) {
-                    if (i < 0 || i >= n || j < 0 || j >= m || !world_map[i][j].includes(baseid)) {
-                        return 0;
-                    }
-                    let size = 1;
-                    world_map[i][j] = -1;
-                    size += dfs(i - 1, j, baseid);
-                    size += dfs(i + 1, j, baseid);
-                    size += dfs(i, j - 1, baseid);
-                    size += dfs(i, j + 1, baseid);
-                    return size;
-                }
+        let cluster_data = get_clusters_data(world_map);
 
-                const n = world_map.length;
-                const m = world_map[0].length;
-                const clusters = {};
-                const baseids = ["PAR", "RES", "IND", "COM"];
-                for (let k = 0; k < baseids.length; k++) {
-                    const baseid = baseids[k];
-                    const sizes = [];
-                    for (let i = 0; i < n; i++) {
-                        for (let j = 0; j < m; j++) {
-                            if (world_map[i][j].includes(baseid)) {
-                                sizes.push(dfs(i, j, baseid));
-                            }
-                        }
-                    }
-                    if (sizes.length > 0) {
-                        clusters[baseid] = Math.max(...sizes);
-                    }
-                }
-                return clusters;
-            }
+        function score_blocks(world_map){
+            let score = 0
+            ["PAR","RES","COM","IND"].forEach(cluster_type => {
+                score += max(get_clusters_info(world_map, cluster_data, cluster_type, "1d_list_lengths"));
+            })
+        };
 
-            let clusters = find_biggest_clusters(world_map);
-            let sortedClusters = Object.values(clusters).sort();
-            let bestClusters = sortedClusters.slice(0, 4);
-            let score = 0;
-            for (let i = 0; i < bestClusters.length; i++) {
-                score += bestClusters[i];
-            }
+        function score_roads(world_map){
+            let score = 0
+            score -= get_clusters_info(world_map, cluster_data, "RD", "1d_list_lengths").length();
             return score;
-        }
+        };
 
-        function score_roads(world_map) {
-            const visited = new Set(); // to keep track of visited cells
-            let count = 0; // to keep track of the number of clusters
+        function score_goal(world_map, goal){
+            return eval(goal + "(world_map)");
 
-            // helper function to recursively explore neighboring cells
-            function explore(x, y) {
-                visited.add(`${x},${y}`);
+        };
 
-                // check north neighbor
-                if (y > 0 && !visited.has(`${x},${y-1}`) && (world_map[y][x].includes('-RDS-') || world_map[y - 1][x].includes('-RDN-'))) {
-                    explore(x, y - 1);
-                }
+        let score_block = score_blocks(world_map);
+        let score_road = score_roads(world_map);
 
-                // check south neighbor
-                if (y < world_map.length - 1 && !visited.has(`${x},${y+1}`) && (world_map[y][x].includes('-RDN-') || world_map[y + 1][x].includes('-RDS-'))) {
-                    explore(x, y + 1);
-                }
+        cards_goals.map(goal => score_goal(world_map, goal));
 
-                // check west neighbor
-                if (x > 0 && !visited.has(`${x-1},${y}`) && (world_map[y][x].includes('-RDW-') || world_map[y][x - 1].includes('-RDE-'))) {
-                    explore(x - 1, y);
-                }
-
-                // check east neighbor
-                if (x < world_map[0].length - 1 && !visited.has(`${x+1},${y}`) && (world_map[y][x].includes('-RDE-') || world_map[y][x + 1].includes('-RDW-'))) {
-                    explore(x + 1, y);
-                }
-            }
-
-            // iterate through each cell in the world_map
-            for (let y = 0; y < world_map.length; y++) {
-                for (let x = 0; x < world_map[0].length; x++) {
-                    if (!visited.has(`${x},${y}`) && world_map[y][x].includes('-RD')) {
-                        explore(x, y);
-                        count++;
-                    }
-                }
-            }
-
-            return count;
-        }
-
-
-        // Score roads
-        function score_roads_old(world_map) {
-            let score = 0;
-            const map_size = world_map.length;
-            for (let y = 1; y < map_size; y++) {
-                for (let x = 1; x < map_size; x++) {
-                    if (world_map[y][x].includes("-RDN-")) {
-                        if (!world_map[y - 1][x].includes("-RDS")) {
-                            score -= 1;
-                        }
-                    }
-                    if (world_map[y][x].includes("-RDE-")) {
-                        if (!world_map[y][x + 1].includes("-RDW")) {
-                            score -= 1;
-                        }
-                    }
-                    if (world_map[y][x].includes("-RDS-")) {
-                        if (!world_map[y + 1][x].includes("-RDN")) {
-                            score -= 1;
-                        }
-                    }
-                    if (world_map[y][x].includes("-RDW-")) {
-                        if (!world_map[y][x - 1].includes("-RDE")) {
-                            score -= 1;
-                        }
-                    }
-                }
-            }
-            return score / 2;
-        }
-
-        // Score goal cards
-        function score_goals(cards3, world_map) {
-            const score_lib = {};
-            let score = 0;
-            for (const card of cards_goal) {
-                score += eval(score_lib[card]);
-            }
-            return score;
-        }
-
-        score_block = score_blocks(world_map);
-        score_road = score_roads(world_map);
-        score_goals = score_goals(cards_goal, world_map);
-
-        return score_block + score_road + score_goals;
+        return [score_block] + [score_road] + cards_goals;
     }
 
     setup();
