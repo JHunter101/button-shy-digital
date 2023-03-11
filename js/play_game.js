@@ -155,13 +155,13 @@ function play (mapSize = 9, rounds = 15) {
   }
 
   let [cardsAvailable, cardsGoal, cardsHand, allowedCoords, worldMap, finalScore, targetScore] = setup()
-
   while (rounds > 0) {
     // pick a x y
     const x = 1
     const y = 1
-      [worldMap, allowedCoords] = PlayCard(worldMap, cardsHand[0], x, y, allowedCoords)
+
     cardsHand = DrawCard(cardsAvailable)
+    const [worldMap, allowedCoords] = PlayCard(worldMap, cardsHand[0], x, y, allowedCoords)
     rounds -= 1
   }
 

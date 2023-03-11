@@ -134,10 +134,10 @@ function SmartRoadGetNeighbor (worldMap, x, y, target, roadType = 'RD', roadToRo
 
 function getClustersData (worldMap) {
   const clusterData = {}
-  const visited = []
+  const visited = Set()
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
-      if (visited.includes([y, x]) || worldMap[y][x] == null) {
+      if (visited.includes([y, x]) || worldMap[y][x] === null) {
         continue
       }
       const cluster = []
@@ -154,7 +154,7 @@ function getClustersData (worldMap) {
         if (visited.includes(current)) {
           continue
         }
-        visited.push(current)
+        visited.add(current)
 
         if (worldMap[current[0]][current[1]].includes(cType)) {
           cluster.push(current)
@@ -171,10 +171,10 @@ function getClustersData (worldMap) {
 
   ['RD', 'RV'].forEach(cType => {
     clusterData[cType] = []
-    const visited = []
+    const visited = set()
     for (let y = 1; y < worldMap.length - 1; y++) {
       for (let x = 1; x < worldMap.length - 1; x++) {
-        if (visited.includes([y, x]) || worldMap[y][x] == null) {
+        if (visited.includes([y, x]) || worldMap[y][x] === null) {
           continue
         }
 
@@ -188,7 +188,7 @@ function getClustersData (worldMap) {
           if (visited.includes(current)) {
             continue
           }
-          visited.push(current)
+          visited.add(current)
           const neighbors = SmartRoadGetNeighbor(worldMap, current[0], current[1], null, 'RD', true)
           cluster += neighbors
           toVisit += neighbors
@@ -246,10 +246,10 @@ function ScoreSO02B (worldMap, clusterData) {
   const toCheck = getClusterInfo(worldMap, clusterData, 'COL', '2d_list_values') + getClusterInfo(worldMap, clusterData, 'ROW', '2d_list_values')
   toCheck.forEach(cluster => {
     if (cluster.filter(value => value.includes('-PAR'))
-      .length == 3) {
+      .length === 3) {
       score += 1
     } else if (cluster.filter(value => value.includes('-PAR'))
-      .length == 0) {
+      .length === 0) {
       score -= 3
     }
   })
@@ -261,10 +261,10 @@ function ScoreSO03B (worldMap, clusterData) {
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
       score += (GetNeighbor(worldMap, x, y, 'self', 'PAR-')
-        .length == 1)
+        .length === 1)
         ? 1
         : (GetNeighbor(worldMap, x, y, 'self', 'IND-')
-            .length == 1)
+            .length === 1)
             ? -3
             : 0
     }
@@ -276,16 +276,16 @@ function ScoreSO04B (worldMap, clusterData) {
   let score = -8
 
   for (let y = 1; y < worldMap.length - 1; y++) {
-    if (score == 7) {
+    if (score === 7) {
       break
     }
     for (let x = 1; x < worldMap.length - 1; x++) {
-      if (score == 7) {
+      if (score === 7) {
         break
       }
 
       if (GetNeighbor(worldMap, x, y, 'all_2x2', worldMap[y][x].slice(0, 3))
-        .length == 4) {
+        .length === 4) {
         score += 3
       }
     }
@@ -299,10 +299,10 @@ function ScoreSO05B (worldMap, clusterData) {
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
       if (GetNeighbor(worldMap, x, y, 'self', 'IND-')
-        .length == 1) {
+        .length === 1) {
         if (GetNeighbor(worldMap, x, y, 'all_adj', 'IND-')
           .length + (GetNeighbor(worldMap, x, y, 'all_adj', 'COM-')
-          .length == 4)) {
+          .length === 4)) {
           score += 2
         }
       }
@@ -324,9 +324,9 @@ function ScoreSO07B (worldMap, clusterData) {
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
       if (GetNeighbor(worldMap, x, y, 'self', 'PAR-')
-        .length == 1) {
+        .length === 1) {
         if (GetNeighbor(worldMap, x, y, 'all_adj', null)
-          .length == 0) {
+          .length === 0) {
           score += 1
         } else {
           score -= 2
@@ -374,7 +374,7 @@ function ScoreSO09B (worldMap, clusterData) {
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
       if (GetNeighbor(worldMap, x, y, 'self', 'IND-')
-        .length == 1) {
+        .length === 1) {
         if (GetNeighbor(worldMap, x, y, 'all_cross', 'IND-')
           .length > 0) {
           score += 1
@@ -401,10 +401,10 @@ function ScoreSO11B (worldMap, clusterData) {
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
       if (GetNeighbor(worldMap, x, y, 'self', 'COM-')
-        .length == 1) {
+        .length === 1) {
         if (SmartRoadGetNeighbor(worldMap, x, y, null, 'RD', true)
           .filter(coord => GetNeighbor(worldMap, coord[0], coord[1], 'self', 'RES-')
-            .length == 1)
+            .length === 1)
           .length > 2) {
           score += 2
         }
@@ -425,10 +425,10 @@ function ScoreSO13B (worldMap, clusterData) {
   getClusterInfo(worldMap, clusterData, 'RD', '2d_list_coords')
     .forEach(cluster => {
       if (cluster.filter(coord => SmartRoadGetNeighbor(worldMap, coord[0], coord[1], null, 'RD', true)
-        .length == 1)
+        .length === 1)
         .filter(coord => GetNeighbor(worldMap, coord[0], coord[1], 'self', 'PAR-')
-          .length == 1)
-        .length == 2) {
+          .length === 1)
+        .length === 2) {
         score += 3
       }
     })
@@ -451,7 +451,7 @@ function ScoreSO15B (worldMap, clusterData) {
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
       if (GetNeighbor(worldMap, x, y, 'self', 'RES-')
-        .length == 1) {
+        .length === 1) {
         if (GetNeighbor(worldMap, x, y, 'all_adj', 'IND-')
           .length >= 2) {
           score += 2
@@ -479,7 +479,7 @@ function ScoreSO17B (worldMap, clusterData) {
   for (let y = 1; y < worldMap.length - 1; y++) {
     for (let x = 1; x < worldMap.length - 1; x++) {
       if (GetNeighbor(worldMap, x, y, 'self', 'COM-')
-        .length == 1) {
+        .length === 1) {
         if (GetNeighbor(worldMap, x, y, 'all_adj', null)
           .length > 0) {
           score += 1
