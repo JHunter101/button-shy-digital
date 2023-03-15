@@ -1,0 +1,15 @@
+fid,finfo
+RDN,road north exit
+RDE,road east exit
+RDS,road south exit
+RDW,road west exit
+RVN,river north exit
+RVE,river east exit
+RVS,river south exit
+RVW,river west exit
+CPN,camp north free
+CPE,camp east free
+CPS ,camp south free
+CPW,camp west free
+PE1,single pen
+PE2,double pen

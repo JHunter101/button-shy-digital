@@ -1,0 +1,13 @@
+baseid,baseinfo,basecolor
+PAR,parks,light green
+COM,commercial,light blue
+RES,residential,orange
+IND,industrial,grey
+COR ,cornfield,yellow
+ORC,orchard,red
+VIN,vineyard,purple
+LIV,livestock,brown
+FOR,forest,dark green
+LAK,lake,dark blue
+MEA,meadow,pink
+MOU,mountain ,light grey

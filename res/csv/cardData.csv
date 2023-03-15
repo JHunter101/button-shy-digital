@@ -1,0 +1,61 @@
+id,source,nw,ne,sw,se,goal_info
+SO01_A,sprawlopolis,IND-RDE-RDW,COM-RDS-RDW,PAR,RES-RDN-RDS,"1 * road that does not end at the edge of the city.
+-1 * road that ends at the edge of the city."
+SO02_A,sprawlopolis,RES-RDN-RDS,COM-RDN-RDE,IND-RDN-RDS,PAR,"1 * each row & collumn with exactly 3 park blocks in it.
+-3 * 1 * each row & collumn with exactly 0 park blocks in it."
+SO03_A,sprawlopolis,IND-RDS-RDE,RES-RDE-RDW,COM-RDN-RDS,PAR,"1 * park blocks in your city.
+-3* industrial blocks in your city."
+SO04_A,sprawlopolis,IND-RDN-RDS,PAR,RES-RDN-RDE,COM-RDE-RDW,"-8 + 3 * groups of 4 ""corner to corner"" blocks of the same type. You may score multiple groups of the same type and a block may apply to more than one group. (max 7)"
+SO05_A,sprawlopolis,COM-RDE-RDW,IND-RDE-RDW,RES-RDS-RDE,PAR,2 * industrial blocks adjecent to only commercial or industrial blocks
+SO06_A,sprawlopolis,RES-RDE-RDW,IND-RDS-RDW,PAR,COM-RDN-RDS,Subtract the number of blocks in your largest industrial group from the number of blocks in your largest residential group. score that many points
+SO07_A,sprawlopolis,RES-RDE-RDW,COM-RDE-RDW,IND-RDS-RDW,PAR,"1 * parks located on the interior of the city
+-2 * parks located on the edge of the city"
+SO08_A,sprawlopolis,PAR,IND-RDN-RDS,COM-RDE-RDW,RES-RDN-RDW,"1 * park blocks adjecent to your largest group of residential blocks.
+-2 * industrial blocks adjecent to your largest group of residential blocks"
+SO09_A,sprawlopolis,PAR,RES-RDN-RDS,IND-RDS-RDW,COM-RDN-RDW,1* industrial block that shares a corner with atleast 1 other industrial block
+SO10_A,sprawlopolis,RES-RDN-RDW,PAR,COM-RDE-RDW,IND-RDE-RDW,1 * commercial block in any 1 row or collumn of your choice. you may only score 1 row or collumn
+SO11_A,sprawlopolis,COM-RDS-RDE,IND-RDS-RDE,RES-RDN-RDS,PAR,2 * commercial block directly between two residential blocks with the same road connecting all three blocks. Blocks may be a straight line or in a stepped pattern
+SO12_A,sprawlopolis,RES-RDN-RDS,PAR,COM-RDN-RDS,IND-RDS-RDE,1 * every two road sections (rounded down) that are part of your longest road
+SO13_A,sprawlopolis,IND-RDN-RDS,RES-NE,COM-RDN-RDS,PAR,3 * road that begins at one park and ends at a different park
+SO14_A,sprawlopolis,COM-RDN-RDW,RES-RDN-RDS,PAR,IND-RDN-RDS,1 * road section in a completed loop. You may score multiple loops in your city
+SO15_A,sprawlopolis,IND-RDN-RDW,PAR,RES-RDE-RDW,COM-RDE-RDW,2 * residential blocks adjecent to 2 or more industrial blocks
+SO16_A,sprawlopolis,IND-RDE-RDW,RES-RDE-RDW,COM-RDS-RDW,PAR,2* roads that passes through both a Residential block and a commercial block
+SO17_A,sprawlopolis,COM-RDN-RDW,PAR,IND-RDE-RDW,RES-RDE-RDW,"1 * commercial block on the edge of the city.
+1 * commercial block on a corner edge."
+SO18_A,sprawlopolis,COM-RDN-RDS,PAR,IND-RDN-RDS,RES-RDS-RDE,add the number of blocks in your longest row to the number of blocks in your longest column (skipping any gaps). score that many points
+AO01_A,agropolis ,,,,,
+AO02_A,agropolis ,,,,,
+AO03_A,agropolis ,,,,,
+AO04_A,agropolis ,,,,,
+AO05_A,agropolis ,,,,,
+AO06_A,agropolis ,,,,,
+AO07_A,agropolis ,,,,,
+AO08_A,agropolis ,,,,,
+AO09_A,agropolis ,,,,,
+AO10_A,agropolis ,,,,,
+AO11_A,agropolis ,,,,,
+AO12_A,agropolis ,,,,,
+AO13_A,agropolis ,,,,,
+AO14_A,agropolis ,,,,,
+AO15_A,agropolis ,,,,,
+AO16_A,agropolis ,,,,,
+AO17_A,agropolis ,,,,,
+AO18_A,agropolis ,,,,,
+NO01_A,naturopolis,,,,,
+NO02_A,naturopolis,,,,,
+NO03_A,naturopolis,,,,,
+NO04_A,naturopolis,,,,,
+NO05_A,naturopolis,,,,,
+NO06_A,naturopolis,,,,,
+NO07_A,naturopolis,,,,,
+NO08_A,naturopolis,,,,,
+NO09_A,naturopolis,,,,,
+NO10_A,naturopolis,,,,,
+NO11_A,naturopolis,,,,,
+NO12_A,naturopolis,,,,,
+NO13_A,naturopolis,,,,,
+NO14_A,naturopolis,,,,,
+NO15_A,naturopolis,,,,,
+NO16_A,naturopolis,,,,,
+NO17_A,naturopolis,,,,,
+NO18_A,naturopolis,,,,,
