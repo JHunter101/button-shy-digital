@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*-------------------------------------------------------------- # Base Section Start--------------------------------------------------------------*/
+:root {
+  --main-bg-color: #000000;
+  --accent-bg-color: #f5f5f5;
+}
+
+html * {
+  font-family: 'Monospace', sans-serif !important;
+  background: black;
+  color: white;
+}
+
+body {
+  display: block;
+  margin: 0px;
+  height: 100vh;
+}
+
+.section {
+  padding: 4% 10%;
+}
+
+/*-------------------------------------------------------------- # Air Section --------------------------------------------------------------*/
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/*-------------------------------------------------------------- # Game Section --------------------------------------------------------------*/
+
+#game {
+  width: min(65vh, 65vw);
+  padding: 0;
+}
+
+#game .grid {
+  padding: min(3vw, 20px);
+}
+
+#game #game-board {
+  grid-template-columns: repeat(25, minmax(0, 1fr));
+  grid-template-rows: repeat(25, minmax(0, 1fr));
+  height: min(150vh, 150vw);
+  width: min(150vh, 150vw);
+}
+
+#game .grid-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: min(0.3vw, 2px) solid white;
+  aspect-ratio: 1/1;
+}
+
+#game .card-panel {
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: min(2.5vw, 25px);
+}
+
+#game .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: min(0.3vw, 2px) solid white;
+  aspect-ratio: 15/10;
+}
+
+#game .button-panel {
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: min(2.5vw, 25px);
+  margin-top: max(-3vw, -20px);
+}
+
+#game .rButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: min(0.3vw, 2px) solid white;
+  aspect-ratio: 15/2;
+}
+
+.cSelected {
+  outline: min(0.3vw, 2px) solid red;
+}

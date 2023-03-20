@@ -125,7 +125,6 @@ function SmartRoadGetNeighbor(worldMap, myCoord, toFind, roadType = 'RD', roadTo
 }
 exports.SmartRoadGetNeighbor = SmartRoadGetNeighbor;
 function GetClustersData(worldMap) {
-    var _a;
     const clusterData = {};
     const visited = new Set();
     for (let y = 1; y < worldMap.length - 1; y++) {
@@ -135,7 +134,7 @@ function GetClustersData(worldMap) {
                 const toVisit = [{ y: y, x: x }];
                 const cType = worldMap[y][x].slice(0, 3);
                 while (toVisit.length > 0) {
-                    const current = (_a = toVisit.pop()) !== null && _a !== void 0 ? _a : { y: -1, x: -1 };
+                    const current = toVisit.pop() ?? { y: -1, x: -1 };
                     if (visited.has(current)) {
                         continue;
                     }
@@ -158,7 +157,6 @@ function GetClustersData(worldMap) {
         }
     }
     ['RD', 'RV'].forEach((cType) => {
-        var _a;
         clusterData[cType] = [];
         const visited = new Set();
         for (let y = 1; y < worldMap.length - 1; y++) {
@@ -169,7 +167,7 @@ function GetClustersData(worldMap) {
                 const cluster = [];
                 const toVisit = [{ y: y, x: x }];
                 while (toVisit.length > 0) {
-                    const current = (_a = toVisit.pop()) !== null && _a !== void 0 ? _a : { y: -1, x: -1 };
+                    const current = toVisit.pop() ?? { y: -1, x: -1 };
                     if (visited.has(current)) {
                         continue;
                     }

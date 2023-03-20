@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Button Shy Digital</title>
+    <link rel="stylesheet" type="text/css" href="dist/css/output.css" />
+    <script>
+      var exports = {};
+    </script>
+    <script type="module" src="dist/ts/play_game.js"></script>
+    <script type="module" src="dist/src/ts/game_window.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <div class="flex h-screen p-0 w-full">
+      <section id="game" class="section m-auto">
+        <div id="sCards" class="card-panel grid grid-flow-rows">
+          <div id="sCardA" class="sCard card"></div>
+          <div id="sCardB" class="sCard card"></div>
+          <div id="sCardC" class="sCard card"></div>
+        </div>
+        <div
+          id="map"
+          class="overflow-scroll aspect-square border border-white select-none no-scrollbar"
+        >
+          <div id="game-board" class="grid grid-flow-rows"></div>
+          <script>
+            const gameBoard = document.getElementById('game-board');
+            const map = document.getElementById('map');
+            const cellSize = 40; // Adjust this to match your cell size
+
+            // Calculate the center of the game board
+            const centerX = (gameBoard.offsetWidth - map.offsetWidth) / 2;
+            const centerY = (gameBoard.offsetHeight - map.offsetHeight) / 2;
+
+            // Calculate the coordinates of the center cell
+            const centerCellX = Math.floor(centerX / cellSize);
+            const centerCellY = Math.floor(centerY / cellSize);
+
+            // Set the initial scroll position to center on the center cell
+            map.scrollTop = centerCellY * cellSize;
+            map.scrollLeft = centerCellX * cellSize;
+
+            // Add the cells to the game board
+            for (let y = 0; y < 25; y++) {
+              for (let x = 0; x < 25; x++) {
+                const div = document.createElement('div');
+                div.id = `b-cell-${y}${x}`;
+                div.classList.add('board-cell');
+                div.classList.add('grid-cell');
+                div.classList.add('select-none');
+
+                // Do something when the div is clicked
+                div.addEventListener('click', function () {
+                  console.log(div.id);
+                });
+
+                gameBoard.appendChild(div);
+              }
+            }
+          </script>
+        </div>
+        <div id="hCards" class="card-panel grid grid-flow-rows">
+          <div id="hCardA" onclick="selectCard(self)" class="sCard card"></div>
+          <div id="hCardB" onclick="selectCard(self)" class="sCard card"></div>
+          <div id="hCardC" onclick="selectCard(self)" class="sCard card"></div>
+        </div>
+
+        <div id="rCards" onclick="rotateCard(self)" "class" ="button-panel grid grid-flow-rows">
+          <div id="rCardA" onclick="rotateCard(self)" class="rButton">Rotate</div>
+          <div id="rCardB" onclick="rotateCard(self)" class="rButton">Rotate</div>
+          <div id="rCardC" onclick="rotateCard(self)" class="rButton">Rotate</div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

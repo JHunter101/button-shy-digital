@@ -35,7 +35,13 @@ function Rotate180(hand, i) {
         return newCode.join('-');
     }
     const card = hand[i];
-    hand[i] = Object.assign(Object.assign({}, card), { nw: Rtl(card.nw), ne: Rtl(card.ne), sw: Rtl(card.sw), se: Rtl(card.se) });
+    hand[i] = {
+        ...card,
+        nw: Rtl(card.nw),
+        ne: Rtl(card.ne),
+        sw: Rtl(card.sw),
+        se: Rtl(card.se),
+    };
     return hand;
 }
 exports.Rotate180 = Rotate180;
